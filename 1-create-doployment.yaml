@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment-1
+spec:
+  selector:
+    matchLabels:
+      name: my-app1 
+      # deployment my-app-deployment-1 menghadle pod my-app1
+  template: 
+    # under template properti untuk pod-nya
+    metadata:
+      labels:
+        name: my-app1
+        # membuat nama pod my-app1
+    spec:
+      containers:
+        - name: hello-world
+          image: muhnashir/first-image:v1
+          env:
+            - name: PORT 
+              value: "8080"

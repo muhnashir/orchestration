@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  # Service aplikasi hello world
+  # docker run -it --rm --name=service-hello-world -p 8083:8083 
+  # -e MYSQL_CONN_STRING=root@tcp(localhost:3306)/latihan_docker?parseTime=true -e PORT 8083
+  # --network=my-network hello world-v2
+  service-hello-world:
+    build: .
+    environment:
+      - MYSQL_CONN_STRING=root@tcp(service-mariadb:3306)/latihan_docker?parseTime=true
+      - PORT=8083
+    ports:
+      - 8083:8083
+    networks:
+      - my-network
+    depends_on:
+      - service-mariadb
+
+  #Service Mariarb
+  # docker run -it --rm --name=service-maria-db -p 3306:3306
+  # -e MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes -v E:/docker-volume:/var/lib/mysql
+  # --network=my-network mariadb
+  service-mariadb:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
+    volumes:
+      - E:/code/latihan docker/volume-docker:/var/lib/mysql
+      - ./migration/schema.sql:/data/application/init.sql
+    command: --init-file /data/application/init.sql
+    ports:
+      - 3306:3306
+    networks:
+      - my-network
+
+networks:
+  my-network:

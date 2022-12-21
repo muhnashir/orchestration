@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod1
+spec:
+  containers:
+    - name: hello-world
+      image: muhnashir/first-image:v1
+      env:
+        - name: PORT 
+          value: "8080"

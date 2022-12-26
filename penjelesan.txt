@@ -1,0 +1,8 @@
+my-app-development2 ->mariadb server
+my-service2 -> cluster IP (FQDN : my-service2.default.svc.cluster.local)
+
+my-app-development3 -> crud hello world
+my-service3 -> load balancer service
+
+curl -X POST -d "{\"FirstName\":\"amad\",\"LastName\":\"banyak\",\"Birth\":\"2020-04-01T01:06:42.623Z\"}" -H "Content-type=application/json" http://127.0.0.1:53832/user
+

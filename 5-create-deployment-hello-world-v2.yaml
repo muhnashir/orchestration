@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment-3
+spec:
+  selector:
+    matchLabels:
+      name: my-app3
+  template:
+    metadata:
+      labels:
+        name : my-app3
+    spec:
+      containers:
+        - name : hello-world-v2
+          image: muhnashir/first-image:v1
+          env :
+            - name : PORT
+              value: "8080"
+            - name: MYSQL_CONN_STRING
+              value: root:password@tcp(my-service2.default.svc.cluster.local:3306)/latihan_docker?parseTime=true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service3
+spec:
+  type : LoadBalancer
+  selector :
+    name: my-app3
+  ports :
+    - port : 8080
+      targetPort : 8080
+
+
+    
